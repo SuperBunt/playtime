@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MockInterview", "MockInterview\MockInterview.csproj", "{63FBFA64-F800-4E69-88AF-438F0B0689C6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AwaitAsync", "AwaitAsync\AwaitAsync.csproj", "{32902C93-2286-4DC3-9374-F45602166214}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{63FBFA64-F800-4E69-88AF-438F0B0689C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63FBFA64-F800-4E69-88AF-438F0B0689C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63FBFA64-F800-4E69-88AF-438F0B0689C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63FBFA64-F800-4E69-88AF-438F0B0689C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32902C93-2286-4DC3-9374-F45602166214}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32902C93-2286-4DC3-9374-F45602166214}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32902C93-2286-4DC3-9374-F45602166214}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32902C93-2286-4DC3-9374-F45602166214}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
