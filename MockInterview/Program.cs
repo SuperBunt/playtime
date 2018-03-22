@@ -14,9 +14,9 @@ public class Program
     delegate bool DelegateRange(int price);
     static void Main()
     {
-        string url;
+        string url = "http://www.daft.ie/cork/houses-for-sale/rochestown/45-wainsfort-rochestown-cork-1672207/";
         Console.WriteLine("Enter URL");
-        url = Console.ReadLine();
+        //url = Console.ReadLine();
         //getHouseDetail(url).Wait();
         PdfGenerator.GeneratePdf(getHouseDetail(url).Result);
         //int x;
@@ -80,7 +80,7 @@ public class Program
         // Setup the configuration to support document loading
         var config = Configuration.Default.WithDefaultLoader();
 
-        //var address = "http://www.daft.ie/dublin/houses-for-sale/tallaght/31-ellensborough-grange-kiltipper-road-tallaght-dublin-1655436/";
+        
 
         // Asynchronously get the document in a new context using the configuration
 
@@ -93,8 +93,7 @@ public class Program
         //Console.WriteLine(price.TextContent);
         house.Description = document.QuerySelector("#description").TextContent;
         var aatr = document.QuerySelector("#smi-gallery-img-main > span > img");
-        house.MainPhoto = document.QuerySelector("#smi-gallery-img-main").InnerHtml;
-
+        house.MainPhoto = document.QuerySelector("#smi-gallery-img-main > span > img").OuterHtml.ToString().Split('"', '"')[1];
         var items = document.QuerySelectorAll(".header_text");
         house.BriefFeatures = String.Join(" | ", items.Select(x =>x.TextContent).ToArray());
         

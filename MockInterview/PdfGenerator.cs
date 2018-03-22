@@ -25,13 +25,13 @@ namespace MockInterview
         public static void GeneratePdf(IHouse home)
         {
             Document document = new Document();
-            var folder = "C:/Users/pec/Documents/My Received Files";
-            string filename = CleanInput(home.Address);
+            var folder = @"C:\Users\User\Documents\workstuff";
+            string filename = CleanInput(home.Address) + ".pdf";
             var target = Path.Combine(folder, filename);
-            
+
             //PdfPage page = document.AddPage();
             DefineStyles(ref document);
-            
+
             BuildPages(ref document, ref home);
             const bool unicode = false;
             const PdfFontEmbedding embedding = PdfFontEmbedding.Always;
@@ -40,11 +40,34 @@ namespace MockInterview
             pdfRenderer.Document = document;
             pdfRenderer.RenderDocument();
             // Create or Replace the file
-            using (FileStream stream = File.Create(target))
+            try
             {
-                pdfRenderer.PdfDocument.Save(stream, true);
-                Process.Start(target);
+
+                // Delete the file if it exists.
+                if (File.Exists(target))
+                {
+                    // Note that no lock is put on the
+                    // file and the possibility exists
+                    // that another process could do
+                    // something with it between
+                    // the calls to Exists and Delete.
+                    File.Delete(target);
+                }
+
+                // Create the file.
+                using (FileStream fs = File.Create(target))
+                {
+                    pdfRenderer.PdfDocument.Save(fs, true);
+                    Process.Start(target);
+                }
+                
             }
+
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+            
         }
 
         private static void BuildPages(ref Document document, ref IHouse home)
@@ -53,6 +76,12 @@ namespace MockInterview
             Paragraph paragraph = section.AddParagraph(home.Address, "Heading1");
 
             document.LastSection.AddParagraph(home.Price, "Heading2");
+
+            byte[] image = LoadImage("https://b.dmlimg.com/ZGJlNDkyNjJlMDQ2ZDY1YjY1ZTEzMWVjNGZkZDhiYjTaZ1dAgu-PUYvsCFTZO2EFaHR0cDovL3MzLWV1LXdlc3QtMS5hbWF6b25hd3MuY29tL21lZGlhbWFzdGVyLXMzZXUvZC83L2Q3ODA5MjY0OGJiNzFkMWRmMmJhZDIxYzBkOGRkNGI5LmpwZ3x8fHx8fDYwMHg0NTB8fHx8.jpg");
+
+            string imageFilename = MigraDocFilenameFromByteArray(image);
+
+            section.AddImage(imageFilename);
 
             document.LastSection.AddParagraph(home.BriefFeatures.ToString(), "Heading3");
 
@@ -146,6 +175,20 @@ namespace MockInterview
             {
                 return String.Empty;
             }
+        }
+
+        static byte[] LoadImage(string name)
+        {
+            using (var webClient = new WebClient())
+            {
+                byte[] imageBytes = webClient.DownloadData(name); // do something with imageBytes` 
+                return imageBytes;
+            }
+        }
+
+        static string MigraDocFilenameFromByteArray(byte[] image)
+        {
+            return Convert.ToBase64String(image);
         }
 
     }
