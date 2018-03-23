@@ -14,11 +14,13 @@ public class Program
     delegate bool DelegateRange(int price);
     static void Main()
     {
-        string url = "http://www.daft.ie/cork/houses-for-sale/rochestown/45-wainsfort-rochestown-cork-1672207/";
-        Console.WriteLine("Enter URL");
+        string url = "http://www.daft.ie/dublin/apartments-for-rent/dublin-8/clancy-quay-by-kennedy-wilson-dublin-8-dublin-1706149/";
+        Console.WriteLine(url);
         //url = Console.ReadLine();
         //getHouseDetail(url).Wait();
-        PdfGenerator.GeneratePdf(getHouseDetail(url).Result);
+        PdfGenerator myPdf = new PdfGenerator();
+        House details = getHouseDetail(url).Result;
+        myPdf.GeneratePdf(details);
         //int x;
         //x = Convert.ToInt32(Console.ReadLine());
         //Product prod1 = new Product(10, 1);
@@ -47,52 +49,26 @@ public class Program
         }
     }
 
-    class House : IHouse
-    {
-        public House()
-        {
-            SoldInArea = new List<string>();
-            PriceHistory = new List<string>();
-            Features = new List<string>();
-        }
-        public string Price { get; set; }
-        public string Description { get; set; }
-        public string Bedrooms { get; set; }
-        public string Address { get; set; }
-        public string BER { get; set; }
-        public string Type { get; set; }
-        public string DateEntered { get; set; }
-        public List<string> SoldInArea { get; set; }
-        public List<string> PriceHistory { get; set; }
-        public List<string> Features { get; set; }
-        public string BriefFeatures { get; set; }
-        public string MainPhoto { get; set; }
+    
 
-        public override string ToString()
-        {
-            return string.Format("{0}\n{1}\n{2}", Address, Price, Description);
-        }
-
-    }
-
-    static async Task<IHouse> getHouseDetail(string url)
+    static async Task<House> getHouseDetail(string url)
     {
         // Setup the configuration to support document loading
         var config = Configuration.Default.WithDefaultLoader();
-
-        
-
         // Asynchronously get the document in a new context using the configuration
 
         var document = await BrowsingContext.New(config).OpenAsync(url);
         House house = new House();
         house.Address = document.QuerySelector("#address_box > div.smi-object-header > h1").TextContent.Trim();
-        var listItems = document.QuerySelectorAll("li.pbxl_carousel_item");
-        //Console.WriteLine(String.Format("Title = {1}, images = {0}", listItems.Count(), titleElement));
-        house.Price = document.QuerySelector("#smi-price-string").TextContent;//.Where(x => x.TextContent.Contains("twitter:data1"));
-        //Console.WriteLine(price.TextContent);
+        var photos = document.QuerySelectorAll("#smi-content > div.smi-gallery > ul > li > span > img");
+        string img;
+        foreach(var src in photos)
+        {
+            img = src.OuterHtml.ToString().Split('"', '"')[1];
+            house.Photos.Add(img);
+        }
+        house.Price = document.QuerySelector("#smi-price-string").TextContent;
         house.Description = document.QuerySelector("#description").TextContent;
-        var aatr = document.QuerySelector("#smi-gallery-img-main > span > img");
         house.MainPhoto = document.QuerySelector("#smi-gallery-img-main > span > img").OuterHtml.ToString().Split('"', '"')[1];
         var items = document.QuerySelectorAll(".header_text");
         house.BriefFeatures = String.Join(" | ", items.Select(x =>x.TextContent).ToArray());

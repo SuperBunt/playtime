@@ -2,25 +2,9 @@ C:\Users\pec\Documents\Visual Studio 2015\Projects\MockInterview\MockInterview\b
 C:\Users\pec\Documents\Visual Studio 2015\Projects\MockInterview\MockInterview\bin\Debug\MockInterview.exe
 C:\Users\pec\Documents\Visual Studio 2015\Projects\MockInterview\MockInterview\bin\Debug\MockInterview.pdb
 C:\Users\pec\Documents\Visual Studio 2015\Projects\MockInterview\MockInterview\bin\Debug\AngleSharp.dll
-C:\Users\pec\Documents\Visual Studio 2015\Projects\MockInterview\MockInterview\bin\Debug\MigraDoc.DocumentObjectModel.dll
-C:\Users\pec\Documents\Visual Studio 2015\Projects\MockInterview\MockInterview\bin\Debug\MigraDoc.Rendering.dll
-C:\Users\pec\Documents\Visual Studio 2015\Projects\MockInterview\MockInterview\bin\Debug\MigraDoc.RtfRendering.dll
-C:\Users\pec\Documents\Visual Studio 2015\Projects\MockInterview\MockInterview\bin\Debug\PdfSharp.Charting.dll
-C:\Users\pec\Documents\Visual Studio 2015\Projects\MockInterview\MockInterview\bin\Debug\PdfSharp.dll
 C:\Users\pec\Documents\Visual Studio 2015\Projects\MockInterview\MockInterview\bin\Debug\AngleSharp.xml
-C:\Users\pec\Documents\Visual Studio 2015\Projects\MockInterview\MockInterview\bin\Debug\MigraDoc.DocumentObjectModel.xml
-C:\Users\pec\Documents\Visual Studio 2015\Projects\MockInterview\MockInterview\bin\Debug\MigraDoc.Rendering.xml
-C:\Users\pec\Documents\Visual Studio 2015\Projects\MockInterview\MockInterview\bin\Debug\MigraDoc.RtfRendering.xml
-C:\Users\pec\Documents\Visual Studio 2015\Projects\MockInterview\MockInterview\bin\Debug\PdfSharp.xml
-C:\Users\pec\Documents\Visual Studio 2015\Projects\MockInterview\MockInterview\bin\Debug\PdfSharp.Charting.xml
-C:\Users\pec\Documents\Visual Studio 2015\Projects\MockInterview\MockInterview\bin\Debug\de\MigraDoc.DocumentObjectModel.resources.dll
-C:\Users\pec\Documents\Visual Studio 2015\Projects\MockInterview\MockInterview\bin\Debug\de\MigraDoc.Rendering.resources.dll
-C:\Users\pec\Documents\Visual Studio 2015\Projects\MockInterview\MockInterview\bin\Debug\de\MigraDoc.RtfRendering.resources.dll
-C:\Users\pec\Documents\Visual Studio 2015\Projects\MockInterview\MockInterview\bin\Debug\de\PdfSharp.resources.dll
-C:\Users\pec\Documents\Visual Studio 2015\Projects\MockInterview\MockInterview\bin\Debug\de\PdfSharp.Charting.resources.dll
 C:\Users\pec\Documents\Visual Studio 2015\Projects\MockInterview\MockInterview\obj\Debug\MockInterview.exe
 C:\Users\pec\Documents\Visual Studio 2015\Projects\MockInterview\MockInterview\obj\Debug\MockInterview.pdb
-C:\Users\pec\Documents\Visual Studio 2015\Projects\MockInterview\MockInterview\obj\Debug\MockInterview.csprojResolveAssemblyReference.cache
 C:\Users\User\Source\Repos\PdfGenerator\MockInterview\bin\Debug\MockInterview.exe.config
 C:\Users\User\Source\Repos\PdfGenerator\MockInterview\obj\Debug\MockInterview.exe
 C:\Users\User\Source\Repos\PdfGenerator\MockInterview\obj\Debug\MockInterview.pdb
@@ -44,3 +28,18 @@ C:\Users\User\Source\Repos\PdfGenerator\MockInterview\bin\Debug\de\MigraDoc.RtfR
 C:\Users\User\Source\Repos\PdfGenerator\MockInterview\bin\Debug\de\PdfSharp.resources.dll
 C:\Users\User\Source\Repos\PdfGenerator\MockInterview\bin\Debug\de\PdfSharp.Charting.resources.dll
 C:\Users\User\Source\Repos\PdfGenerator\MockInterview\obj\Debug\MockInterview.csprojResolveAssemblyReference.cache
+C:\Users\pec\Documents\Visual Studio 2015\Projects\MockInterview\MockInterview\bin\Debug\MigraDoc.DocumentObjectModel-gdi.dll
+C:\Users\pec\Documents\Visual Studio 2015\Projects\MockInterview\MockInterview\bin\Debug\MigraDoc.Rendering-gdi.dll
+C:\Users\pec\Documents\Visual Studio 2015\Projects\MockInterview\MockInterview\bin\Debug\MigraDoc.RtfRendering-gdi.dll
+C:\Users\pec\Documents\Visual Studio 2015\Projects\MockInterview\MockInterview\bin\Debug\PdfSharp-gdi.dll
+C:\Users\pec\Documents\Visual Studio 2015\Projects\MockInterview\MockInterview\bin\Debug\PdfSharp.Charting-gdi.dll
+C:\Users\pec\Documents\Visual Studio 2015\Projects\MockInterview\MockInterview\bin\Debug\MigraDoc.DocumentObjectModel-gdi.xml
+C:\Users\pec\Documents\Visual Studio 2015\Projects\MockInterview\MockInterview\bin\Debug\MigraDoc.Rendering-gdi.xml
+C:\Users\pec\Documents\Visual Studio 2015\Projects\MockInterview\MockInterview\bin\Debug\MigraDoc.RtfRendering-gdi.xml
+C:\Users\pec\Documents\Visual Studio 2015\Projects\MockInterview\MockInterview\bin\Debug\PdfSharp-gdi.xml
+C:\Users\pec\Documents\Visual Studio 2015\Projects\MockInterview\MockInterview\bin\Debug\PdfSharp.Charting-gdi.xml
+C:\Users\pec\Documents\Visual Studio 2015\Projects\MockInterview\MockInterview\bin\Debug\de\MigraDoc.DocumentObjectModel-gdi.resources.dll
+C:\Users\pec\Documents\Visual Studio 2015\Projects\MockInterview\MockInterview\bin\Debug\de\MigraDoc.Rendering-gdi.resources.dll
+C:\Users\pec\Documents\Visual Studio 2015\Projects\MockInterview\MockInterview\bin\Debug\de\MigraDoc.RtfRendering-gdi.resources.dll
+C:\Users\pec\Documents\Visual Studio 2015\Projects\MockInterview\MockInterview\bin\Debug\de\PdfSharp.Charting-gdi.resources.dll
+C:\Users\pec\Documents\Visual Studio 2015\Projects\MockInterview\MockInterview\obj\Debug\MockInterview.csprojResolveAssemblyReference.cache

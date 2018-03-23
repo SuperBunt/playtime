@@ -1,4 +1,5 @@
 ﻿using MigraDoc.DocumentObjectModel;
+using MigraDoc.DocumentObjectModel.Tables;
 using MigraDoc.Rendering;
 using PdfSharp.Drawing;
 using PdfSharp.Pdf;
@@ -8,36 +9,42 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Web;
 
 namespace MockInterview
 
 {
-    internal class PdfGenerator
+    public class PdfGenerator
     {
+        public Document Migradoc { get; set; }
+        public PdfDocument PdfDoc { get; set; }
+        public House home { get; private set; }
+
         public PdfGenerator()
         {
-
+            Migradoc = new Document();
+            PdfDoc = new PdfDocument();
         }
 
 
-        public static void GeneratePdf(IHouse home)
+        public void GeneratePdf(House details)
         {
-            Document document = new Document();
-            var folder = @"C:\Users\User\Documents\workstuff";
+            home = details;
+            var folder = @"C:\Users\pec\Documents\My Received Files\Daft";
             string filename = CleanInput(home.Address) + ".pdf";
             var target = Path.Combine(folder, filename);
 
             //PdfPage page = document.AddPage();
-            DefineStyles(ref document);
+            DefineStyles();
 
-            BuildPages(ref document, ref home);
+            BuildPages();
             const bool unicode = false;
             const PdfFontEmbedding embedding = PdfFontEmbedding.Always;
 
-            PdfDocumentRenderer pdfRenderer = new PdfDocumentRenderer(unicode, embedding);
-            pdfRenderer.Document = document;
+            PdfDocumentRenderer pdfRenderer = new PdfDocumentRenderer();
+            pdfRenderer.Document = Migradoc;
             pdfRenderer.RenderDocument();
             // Create or Replace the file
             try
@@ -55,10 +62,12 @@ namespace MockInterview
                 }
 
                 // Create the file.
+                
                 using (FileStream fs = File.Create(target))
                 {
+                    File.SetAttributes(target, FileAttributes.Normal);
                     pdfRenderer.PdfDocument.Save(fs, true);
-                    Process.Start(target);
+                    //Process.Start(target);
                 }
                 
             }
@@ -70,22 +79,58 @@ namespace MockInterview
             
         }
 
-        private static void BuildPages(ref Document document, ref IHouse home)
+        private void BuildPages()
         {
-            Section section = document.AddSection();
+            PdfPage page = PdfDoc.AddPage();
+            Section section = Migradoc.AddSection();
             Paragraph paragraph = section.AddParagraph(home.Address, "Heading1");
 
-            document.LastSection.AddParagraph(home.Price, "Heading2");
+            Migradoc.LastSection.AddParagraph(home.Price, "Heading2");
 
-            byte[] image = LoadImage("https://b.dmlimg.com/ZGJlNDkyNjJlMDQ2ZDY1YjY1ZTEzMWVjNGZkZDhiYjTaZ1dAgu-PUYvsCFTZO2EFaHR0cDovL3MzLWV1LXdlc3QtMS5hbWF6b25hd3MuY29tL21lZGlhbWFzdGVyLXMzZXUvZC83L2Q3ODA5MjY0OGJiNzFkMWRmMmJhZDIxYzBkOGRkNGI5LmpwZ3x8fHx8fDYwMHg0NTB8fHx8.jpg");
+            Migradoc.LastSection.AddParagraph(home.BriefFeatures.ToString(), "Heading3");
 
-            string imageFilename = MigraDocFilenameFromByteArray(image);
+            //AddImage();
 
-            section.AddImage(imageFilename);
+            Migradoc.LastSection.AddParagraph(home.Description, "Normal");
+            PopulateImages();
+        }
 
-            document.LastSection.AddParagraph(home.BriefFeatures.ToString(), "Heading3");
+        private void PopulateImages()
+        {
 
-            document.LastSection.AddParagraph(home.Description, "Normal");
+            Table table = Migradoc.LastSection.AddTable();
+            table.Borders.Visible = true;
+            const int numColumns = 3;
+            Column column = table.AddColumn();
+            column.Format.Alignment = ParagraphAlignment.Center;
+            table.AddColumn();
+            table.AddColumn();
+            int numRows = (int)Math.Ceiling((double)home.Photos.Count / numColumns);
+            table.Rows.Height = 85;
+            Row row = new Row();
+            int index = 0;
+            for (int i = 0; i < numRows; i++)
+            {
+                row = table.AddRow();
+                for (int j = 0; j < numColumns; j++)
+                {
+                    if (index != home.Photos.Count - 1)
+                    {
+                        string imageFilename = LoadImage(string.Format(@"{0}", home.Photos[index]));
+                        row.Cells[j].AddImage(imageFilename);
+                        index++;
+                    }
+                }
+            }
+        }
+
+        private void AddImage(string src)
+        {
+            //string imageFilename = LoadImage(string.Format(@"{0}",home.MainPhoto));
+            string imageFilename = LoadImage(string.Format(@"{0}", src));
+            MigraDoc.DocumentObjectModel.Shapes.Image image = Migradoc.LastSection.AddImage(imageFilename);
+            image.Width = "6cm";
+            image.LockAspectRatio = true;      
         }
 
         static double A4Width = XUnit.FromCentimeter(21).Point;
@@ -104,10 +149,10 @@ namespace MockInterview
         /// <summary>
         /// Defines the styles used in the document.
         /// </summary>
-        public static void DefineStyles(ref Document document)
+        public void DefineStyles()
         {
             // Get the predefined style Normal.
-            Style style = document.Styles["Normal"];
+            Style style = Migradoc.Styles["Normal"];
             // Because all styles are derived from Normal, the next line changes the 
             // font of the whole document. Or, more exactly, it changes the font of
             // all styles and paragraphs that do not redefine the font.
@@ -118,7 +163,7 @@ namespace MockInterview
             // other than OutlineLevel.BodyText automatically creates the outline (or bookmarks) 
             // in PDF.
 
-            style = document.Styles["Heading1"];
+            style = Migradoc.Styles["Heading1"];
             style.ParagraphFormat.Alignment = ParagraphAlignment.Right;
             style.Font.Name = "Tahoma";
             style.Font.Size = 14;
@@ -127,7 +172,7 @@ namespace MockInterview
             style.ParagraphFormat.PageBreakBefore = true;
             style.ParagraphFormat.SpaceAfter = 6;
 
-            style = document.Styles["Heading2"];
+            style = Migradoc.Styles["Heading2"];
             style.Font.Size = 12;
             style.Font.Bold = true;
             style.ParagraphFormat.Alignment = ParagraphAlignment.Right;
@@ -135,28 +180,28 @@ namespace MockInterview
             style.ParagraphFormat.SpaceBefore = 6;
             style.ParagraphFormat.SpaceAfter = 6;
 
-            style = document.Styles["Heading3"];
+            style = Migradoc.Styles["Heading3"];
             style.Font.Size = 10;
             style.Font.Bold = true;
             style.Font.Italic = true;
             style.ParagraphFormat.SpaceBefore = 6;
             style.ParagraphFormat.SpaceAfter = 3;
 
-            style = document.Styles[StyleNames.Header];
+            style = Migradoc.Styles[StyleNames.Header];
             style.ParagraphFormat.AddTabStop("16cm", TabAlignment.Right);
 
-            style = document.Styles[StyleNames.Footer];
+            style = Migradoc.Styles[StyleNames.Footer];
             style.ParagraphFormat.AddTabStop("8cm", TabAlignment.Center);
 
             // Create a new style called TextBox based on style Normal
-            style = document.Styles.AddStyle("TextBox", "Normal");
+            style = Migradoc.Styles.AddStyle("TextBox", "Normal");
             style.ParagraphFormat.Alignment = ParagraphAlignment.Justify;
             style.ParagraphFormat.Borders.Width = 2.5;
             style.ParagraphFormat.Borders.Distance = "3pt";
             style.ParagraphFormat.Shading.Color = Colors.SkyBlue;
 
             // Create a new style called TOC based on style Normal
-            style = document.Styles.AddStyle("TOC", "Normal");
+            style = Migradoc.Styles.AddStyle("TOC", "Normal");
             style.ParagraphFormat.AddTabStop("16cm", TabAlignment.Right, TabLeader.Dots);
             style.ParagraphFormat.Font.Color = Colors.Blue;
         }
@@ -177,18 +222,20 @@ namespace MockInterview
             }
         }
 
-        static byte[] LoadImage(string name)
+        private string LoadImage(string name)
         {
             using (var webClient = new WebClient())
             {
                 byte[] imageBytes = webClient.DownloadData(name); // do something with imageBytes` 
-                return imageBytes;
+                return "base64:" + Convert.ToBase64String(imageBytes);
             }
         }
 
-        static string MigraDocFilenameFromByteArray(byte[] image)
+        
+
+        static string MigradocFileNameFromByteArray(byte[] image)
         {
-            return Convert.ToBase64String(image);
+            return "base64:" + Convert.ToBase64String(image);
         }
 
     }
