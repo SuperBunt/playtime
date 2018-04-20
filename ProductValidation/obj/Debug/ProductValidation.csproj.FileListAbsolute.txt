@@ -1,0 +1,6 @@
+C:\Users\pec\Documents\Visual Studio 2015\Projects\MockInterview\ProductValidation\obj\Debug\ProductValidation.csprojResolveAssemblyReference.cache
+C:\Users\pec\Documents\Visual Studio 2015\Projects\MockInterview\ProductValidation\bin\Debug\ProductValidation.exe.config
+C:\Users\pec\Documents\Visual Studio 2015\Projects\MockInterview\ProductValidation\bin\Debug\ProductValidation.exe
+C:\Users\pec\Documents\Visual Studio 2015\Projects\MockInterview\ProductValidation\bin\Debug\ProductValidation.pdb
+C:\Users\pec\Documents\Visual Studio 2015\Projects\MockInterview\ProductValidation\obj\Debug\ProductValidation.exe
+C:\Users\pec\Documents\Visual Studio 2015\Projects\MockInterview\ProductValidation\obj\Debug\ProductValidation.pdb
