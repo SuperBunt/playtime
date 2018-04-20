@@ -1,6 +1,5 @@
 ﻿using AngleSharp;
-using MockInterview;
-using System;
+using Validation;
 using System;
 using System.CodeDom;
 using System.Collections.Generic;
@@ -21,21 +20,7 @@ public class Program
         PdfGenerator myPdf = new PdfGenerator();
         House details = getHouseDetail(url).Result;
         myPdf.GeneratePdf(details);
-        //int x;
-        //x = Convert.ToInt32(Console.ReadLine());
-        //Product prod1 = new Product(10, 1);
-        //Product prod2 = new Product(60, 1);
-        //Product prod3 = new Product(10, 2);
-        //Product prod4 = new Product(60, 2);
-        //var validate = new Validate(); // Publisher
-        //var validationService = new ValidationService(); // subscriber
-
-        //validate.PriceChecking += validationService.PriceChecking;
-        //List<Product> list = new List<Product> { prod1, prod2, prod3, prod4 };
-        //list.ForEach(p => validate.CheckPrice(p));
-
-        //Console.WriteLine("Press Enter to exit:");
-        //Console.ReadLine();
+        
     }
 
     public class Product

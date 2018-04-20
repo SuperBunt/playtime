@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static Program;
 
-namespace MockInterview
+namespace Validation
 {
     public class ValidationService
     {

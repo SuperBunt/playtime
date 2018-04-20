@@ -13,7 +13,7 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Web;
 
-namespace MockInterview
+namespace Validation
 
 {
     public class PdfGenerator
